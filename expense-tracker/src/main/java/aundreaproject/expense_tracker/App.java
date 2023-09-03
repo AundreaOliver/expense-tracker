@@ -1,13 +1,33 @@
 package aundreaproject.expense_tracker;
 
-import javax.swing.JTextField;
+import java.util.ArrayList;
+
 
 public class App {
 	public static void main(String[] args) {
-
+		
+		//ExpenseView view = new ExpenseView();
 		DbConnection conn = new DbConnection();
-		conn.connection();
-		conn.insert("Ac", "August 28, 2023", "pencil", 20.3, "for school supply");
-		System.out.println("Comp");
+//		conn.insert("Ac","Aug-10-2023","Laptop",200,"for Work");
+//		conn.insert("Aunds","Sep-11-2023","Laptop",200,"for Work");
+//		conn.insert("Aunds","Nov-13-2023","Laptop",200,"for Work");
+//		conn.insert("Ac","Oct-17-2023","Laptop",200,"for Work");
+//		conn.insert("Aunds","Aug-18-2022","Laptop",200,"for Work");
+//		conn.insert("Ac","Jul-20-2023","Laptop",200,"for Work");
+//		conn.insert("Ac","Nov-15-2023","Laptop",200,"for Work");
+//		conn.insert("Draku","Dec-11-2023","Laptop",200,"for Work");
+//		conn.insert("Draku","Sep-30-2023","Laptop",200,"for Work");
+//		conn.insert("Ac","Jul-19-2022","Laptop",200,"for Work");
+//		conn.insert("Ac","Oct-18-2023","Laptop",200,"for Work");
+//		conn.insert("Draku","Sep-29-2023","Laptop",200,"for Work");
+//		conn.insert("Aunds","Nov-25-2023","Laptop",200,"for Work");
+//		conn.insert("Ac","Apr-03-2022","Laptop",200,"for Work");
+		ExpenseUtil exp = new ExpenseUtil();
+		
+		for (ExpenseModel prnt : exp.getExpensesbyMMYYYY("Jul", "2022", "Ac")) {
+			System.out.println(prnt.toString());
+		}
+
+		System.out.println(exp.getTotalAmountByMY("Jul", "2022", "Ac"));
 	}
 }
