@@ -46,4 +46,7 @@ public class ExpenseView {
 		frame.setVisible(true);
 	}
 	
+	public void setVisibility(boolean visible) {
+		this.frame.setVisible(visible);
+	}
 }

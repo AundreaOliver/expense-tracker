@@ -63,7 +63,6 @@ public class DbConnection {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("Error Log in");
 			e.printStackTrace();
 		}
 		return list;
@@ -76,7 +75,7 @@ public class DbConnection {
 			PreparedStatement pst = connection.prepareStatement(sqlInsert);
 			pst.setString(1, user);
 			pst.execute();
-			
+			 
 		} catch (Exception e) {
 			System.out.println("Error connecting to SQLite database");
 			System.out.println(e);
