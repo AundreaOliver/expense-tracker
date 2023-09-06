@@ -22,7 +22,6 @@ public class LogInController {
 	}
 	
 	
-	
 	class LogInListener implements ActionListener{
 
 		@Override
