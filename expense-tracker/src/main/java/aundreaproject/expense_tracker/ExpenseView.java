@@ -32,6 +32,7 @@ public class ExpenseView {
 		frame.setBounds(400, 400, 600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.pack();
 
 		
 		JPanel panel = new JPanel();

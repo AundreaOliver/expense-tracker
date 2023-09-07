@@ -82,7 +82,24 @@ public class DbConnection {
 		}
 	}
 	
-	
+	public ArrayList<LogInModel> getLogInUser(){
+		ArrayList<LogInModel> list = new ArrayList<LogInModel>();
+		
+		try {
+			PreparedStatement pst = connection.prepareStatement("select * from users");
+			ResultSet rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				String usr = rs.getString("user");
+				
+				list.add(new LogInModel(usr));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
 }
