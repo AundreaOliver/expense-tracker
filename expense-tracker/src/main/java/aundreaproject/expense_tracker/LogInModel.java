@@ -4,6 +4,10 @@ public class LogInModel {
 
 	private String user;
 
+	public LogInModel() {
+		
+	}
+	
 	public LogInModel(String user) {
 		this.user = user;
 	}

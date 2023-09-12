@@ -39,6 +39,13 @@ public class LogInController {
 			String username = view.getUserText().getText();
 			
 			connection.insertUser(username);
+			ValidateUtil validateUser = new ValidateUtil();
+			if (validateUser.isStringContainsSpecialChars("AC@")) {
+				// Pop up try again
+			}else {
+				// Open expenses window
+			}
+			
 			
 		}
 		

@@ -91,7 +91,6 @@ public class DbConnection {
 			
 			while (rs.next()) {
 				String usr = rs.getString("user");
-				
 				list.add(new LogInModel(usr));
 			}
 			

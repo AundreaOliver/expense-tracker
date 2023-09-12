@@ -47,6 +47,7 @@ public class LogInView {
 		createBtn.setBounds(137, 120, 100, 30);
 		panel.add(createBtn);
 
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	

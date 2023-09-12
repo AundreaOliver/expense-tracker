@@ -7,16 +7,16 @@ public class App {
 	public static void main(String[] args) {
 		
 		DbConnection conn = new DbConnection();
-		ArrayList<LogInModel> arr = conn.getLogInUser();
+//		ArrayList<LogInModel> arr = conn.getLogInUser();
+//		
+//		for(LogInModel user : arr) {
+//			System.out.println(user.getUser());
+//		}
 		
-		for(LogInModel user : arr) {
-			System.out.println(user.getUser());
-		}
 		
-		
-//		LogInModel model = new LogInModel();
-//		LogInView view = new LogInView();
-//		LogInController controller = new LogInController(model, view);
+		LogInModel model = new LogInModel();
+		LogInView view = new LogInView();
+		LogInController controller = new LogInController(model, view);
 		
 		
 		
