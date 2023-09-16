@@ -9,6 +9,11 @@ public class ExpenseModel {
 	private String description;
 	private double amount;
 	
+	public ExpenseModel() {
+		
+		
+	}
+	
 	public ExpenseModel(String user, String date, String item, String description, double amount) {
 		this.user = user;
 		this.date = date;

@@ -18,6 +18,9 @@ public class App {
 		LogInView view = new LogInView();
 		LogInController controller = new LogInController(model, view);
 		
+//		ExpenseModel eModel = new ExpenseModel();
+//		ExpenseView eView = new ExpenseView();
+//		ExpenseController eController = new ExpenseController(eModel, eView);
 		
 		
 		//ExpenseView view = new ExpenseView();

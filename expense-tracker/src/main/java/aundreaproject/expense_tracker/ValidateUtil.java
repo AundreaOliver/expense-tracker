@@ -5,24 +5,21 @@ import java.util.regex.Pattern;
 
 public class ValidateUtil {
 
-	private static String specialCharsRegexPattern = "[\\\\!\"#$%&()*+,./:;<=>?@\\[//]^_{|}~`]+";
-	
+	private static String specialCharsRegexPattern = "[$&+,:;=?@#|'<>.^*()%!-]";
+
 	public ValidateUtil() {
-		
+
 	}
-	
+
 	public boolean isStringContainsSpecialChars(String str) {
-		Pattern p = Pattern.compile(specialCharsRegexPattern);
-		Matcher m = p.matcher(str);
-		
-		boolean characterFound = m.find();
-		
-		return characterFound;
-		
+		Pattern special = Pattern.compile(specialCharsRegexPattern);
+		Matcher hasSpecial = special.matcher(str);
+		return hasSpecial.find();
+
 	}
-	
-	public boolean containsNumsOnly(double amt) {
-		Pattern p = Pattern.compile(numsRegexPattern);
-		
-	}
+
+//	private boolean containsNumsOnly(double amt) {
+//		Pattern p = Pattern.compile(numsRegexPattern);
+//		
+//	}
 }
