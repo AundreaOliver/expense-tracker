@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 public class LogInController {
 
+	public String username;
 	private DbConnection connection = new DbConnection();
 	private LogInModel model;
 	private LogInView view;
@@ -28,7 +29,7 @@ public class LogInController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			String username = view.getUserText().getText();
+			username = view.getUserText().getText();
 			ArrayList<LogInModel> userList = connection.getLogInUser();
 			boolean exists = false;
 
@@ -45,16 +46,22 @@ public class LogInController {
 			for (LogInModel user : userList) {
 				if (!username.equals(user.getUser())) {
 					exists = true;
-					JOptionPane.showMessageDialog(null, "User does not exist. Please Create!");
-					break;
+
+				} else {
+					exists = false;
 				}
 			}
+
 			if (!exists) {
 				JOptionPane.showMessageDialog(null, "Logged in Successfully!");
 				view.setVisibility(false);
 				ExpenseModel expModel = new ExpenseModel();
 				ExpenseView expView = new ExpenseView();
-				ExpenseController expController = new ExpenseController(expModel, expView);
+				ExpenseController expController = new ExpenseController(expModel, expView, username);
+				expView.getUser().setText("User: " + username);
+
+			} else {
+				JOptionPane.showMessageDialog(null, "User does not exist. Please Create!");
 			}
 
 		}
@@ -65,7 +72,7 @@ public class LogInController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ValidateUtil validateUser = new ValidateUtil();
-			String username = view.getUserText().getText();
+			username = view.getUserText().getText();
 			ArrayList<LogInModel> userList = connection.getLogInUser();
 			boolean exists = false;
 
@@ -92,7 +99,7 @@ public class LogInController {
 			} else {
 				JOptionPane.showMessageDialog(null, "User already exists.");
 			}
-			
+
 		}
 
 	}

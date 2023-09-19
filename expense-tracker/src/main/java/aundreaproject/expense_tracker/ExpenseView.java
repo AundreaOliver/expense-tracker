@@ -1,9 +1,10 @@
 package aundreaproject.expense_tracker;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +22,7 @@ import com.toedter.calendar.JDateChooser;
 public class ExpenseView {
 
 	private JFrame frame;
-	private JTextField dateField;
+//	private JTextField dateField;
 	private JTextField itemField;
 	private JTextField amountField;
 	private JTextArea descArea;
@@ -60,16 +61,26 @@ public class ExpenseView {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				int i = table.getSelectedRow();
+				((JTextField)dateChooser.getDateEditor().getUiComponent()).setText(tableModel.getValueAt(i, 0).toString());
+				itemField.setText(tableModel.getValueAt(i, 1).toString());
+				amountField.setText(tableModel.getValueAt(i, 2).toString());
+				descArea.setText(tableModel.getValueAt(i, 3).toString());
+				
+			}
+		});
 		table.setBackground(new Color(176, 196, 222));
 		tableModel = new DefaultTableModel();
 		Object[] column = {"Date", "Item", "Amount", "Description"};
-		row = new Object[0];
+		row = new Object[4];
 		tableModel.setColumnIdentifiers(column);
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
 		
 		userLabel = new JLabel("User: ");
-		userLabel.setBounds(30, 80, 50, 30);
+		userLabel.setBounds(30, 80, 150, 30);
 		panel.add(userLabel);
 		
 		dateLabel = new JLabel("Date: ");
@@ -138,11 +149,24 @@ public class ExpenseView {
 		this.frame.setVisible(visible);
 	}
 	
-	public void addBtnListener(ActionListener listenForSkillButton) {
-		addBtn.addActionListener(listenForSkillButton);
-		updateBtn.addActionListener(listenForSkillButton);
-		deleteBtn.addActionListener(listenForSkillButton);
-		clearBtn.addActionListener(listenForSkillButton);
+	public void addBtnListener(ActionListener listenForButton) {
+		addBtn.addActionListener(listenForButton);
+	}
+		
+	public void updateBtnListener(ActionListener listenForButton) {
+		updateBtn.addActionListener(listenForButton);
+	}
+	
+	public void delBtnListener(ActionListener listenForButton) {
+		deleteBtn.addActionListener(listenForButton);
+	}
+	
+	public void clearBtnListener(ActionListener listenForButton) {
+		clearBtn.addActionListener(listenForButton);
+	}
+	
+	public void addMouseListener(MouseAdapter listenForMouse) {
+		table.addMouseListener(listenForMouse);
 	}
 	
 //	public JTextField getDate() {
@@ -152,6 +176,30 @@ public class ExpenseView {
 //	public void setDate(JTextField dateField) {
 //		this.dateField = dateField;
 //	}
+	
+	public JTable getTable() {
+		return table;
+	}
+	
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+	
+	public JLabel getUser() {
+		return userLabel;
+	}
+	
+	public void setUser(JLabel userLabel) {
+		this.userLabel = userLabel;
+	}
+	
+	public JDateChooser getDate() {
+		return dateChooser;
+	}
+	
+	public void setDate(JDateChooser dateChooser) {
+		this.dateChooser = dateChooser;
+	}
 	
 	public JTextField getItem() {
 		return itemField;
