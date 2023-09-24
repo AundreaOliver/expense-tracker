@@ -53,13 +53,14 @@ public class DbConnection {
 			ResultSet rs = pst.executeQuery();
 			
 			while (rs.next()) {
+				String id = rs.getString("expenseid");
 				String usr = rs.getString("user");
 				String date = rs.getString("date");
 				String item = rs.getString("item");
 				double amount = rs.getDouble("amount");
 				String description = rs.getString("description");
 				
-				list.add(new ExpenseModel(usr, date, item, description, amount));
+				list.add(new ExpenseModel(id, usr, date, item, description, amount));
 			}
 			
 		} catch (Exception e) {
@@ -100,5 +101,37 @@ public class DbConnection {
 		return list;
 	}
 	
+	public void deleteData(String expId) {
+		try {
+			String sqlDelete = "DELETE FROM expenses WHERE expenseid = ?";
+			PreparedStatement pst = connection.prepareStatement(sqlDelete);
+			pst.setString(1, expId);
+			pst.executeUpdate();
+			pst.close();
+			
+		} catch (Exception e) {
+			System.out.println("Error connecting to SQLite database");
+			System.out.println(e);
+		}
+	}
 	
+	public void updateData(String expId, String user, String date, String item, double amt, String desc) {
+		try {
+			String sqlUpdate = "UPDATE expenses SET user = ?, date = ?, item = ?, amount = ?, description = ? WHERE expenseid = ?";
+			
+			PreparedStatement pst = connection.prepareStatement(sqlUpdate);
+			pst.setString(1, user);
+			pst.setString(2, date);
+			pst.setString(3, item);
+			pst.setDouble(4, amt);
+			pst.setString(5, desc);
+			pst.setString(6, expId);
+			pst.executeUpdate();
+			pst.close();
+			
+		} catch (Exception e) {
+			System.out.println("Error connecting to SQLite database");
+			System.out.println(e);
+		}
+	}
 }

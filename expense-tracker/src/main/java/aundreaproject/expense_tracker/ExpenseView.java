@@ -1,10 +1,10 @@
 package aundreaproject.expense_tracker;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,13 +26,16 @@ public class ExpenseView {
 	private JTextField itemField;
 	private JTextField amountField;
 	private JTextArea descArea;
+	private JTextField idField;
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JButton addBtn;
 	private JButton deleteBtn;
 	private JButton updateBtn;
 	private JButton clearBtn;
+	private JLabel usernameLabel;
 	private JLabel userLabel;
+	private JLabel idLabel;
 	private JLabel dateLabel;
 	private JLabel itemLabel;
 	private JLabel amtLabel;
@@ -61,42 +64,54 @@ public class ExpenseView {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.setDragEnabled(false);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				int i = table.getSelectedRow();
-				((JTextField)dateChooser.getDateEditor().getUiComponent()).setText(tableModel.getValueAt(i, 0).toString());
-				itemField.setText(tableModel.getValueAt(i, 1).toString());
-				amountField.setText(tableModel.getValueAt(i, 2).toString());
-				descArea.setText(tableModel.getValueAt(i, 3).toString());
+				idField.setText(tableModel.getValueAt(i, 0).toString());
+				((JTextField)dateChooser.getDateEditor().getUiComponent()).setText(tableModel.getValueAt(i, 1).toString());
+				itemField.setText(tableModel.getValueAt(i, 2).toString());
+				amountField.setText(tableModel.getValueAt(i, 3).toString());
+				descArea.setText(tableModel.getValueAt(i, 4).toString());	
 				
 			}
 		});
 		table.setBackground(new Color(176, 196, 222));
 		tableModel = new DefaultTableModel();
-		Object[] column = {"Date", "Item", "Amount", "Description"};
-		row = new Object[4];
+		Object[] column = {"Expense ID", "Date", "Item", "Amount", "Description"};
+		row = new Object[5];
 		tableModel.setColumnIdentifiers(column);
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
 		
 		userLabel = new JLabel("User: ");
-		userLabel.setBounds(30, 80, 150, 30);
+		userLabel.setBounds(30, 50, 150, 70);
+		userLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		panel.add(userLabel);
 		
+		usernameLabel = new JLabel();
+		usernameLabel.setBounds(120, 50, 150, 70);
+		usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		panel.add(usernameLabel);
+		
+		idLabel = new JLabel("Expense ID: ");
+		idLabel.setBounds(30, 115, 90, 30);
+		panel.add(idLabel);
+		
 		dateLabel = new JLabel("Date: ");
-		dateLabel.setBounds(30, 115, 50, 30);
+		dateLabel.setBounds(30, 150, 50, 30);
 		panel.add(dateLabel);
 		
 		itemLabel = new JLabel("Item: ");
-		itemLabel.setBounds(30, 150, 50, 30);
+		itemLabel.setBounds(30, 185, 50, 30);
 		panel.add(itemLabel);
 		
 		amtLabel = new JLabel("Amount: ");
-		amtLabel.setBounds(30, 185, 70, 30);
+		amtLabel.setBounds(30, 220, 70, 30);
 		panel.add(amtLabel);
 		
 		descLabel = new JLabel("Description: ");
-		descLabel.setBounds(30, 220, 90, 30);
+		descLabel.setBounds(30, 255, 90, 30);
 		panel.add(descLabel);
 		
 		totalLabel = new JLabel("Total: ");
@@ -106,40 +121,45 @@ public class ExpenseView {
 //		dateField = new JTextField();
 //		dateField.setBounds(120, 115, 150, 30);
 		
-		itemField = new JTextField(10);
-		itemField.setBounds(120, 150, 150, 30);
-		panel.add(itemField);
-		
-		amountField = new JTextField(10);
-		amountField.setBounds(120, 185, 150, 30);
-		panel.add(amountField);
-		
-		descArea = new JTextArea();
-		descArea.setBounds(120, 220, 150, 70);
-		panel.add(descArea);
+		idField = new JTextField();
+		idField.setBounds(120, 115, 150, 30);
+		idField.setBackground(Color.white);
+		idField.setEditable(false);
+		panel.add(idField);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("MMMMM d, yyyy");
-		dateChooser.setBounds(120, 115, 150, 30);
+		dateChooser.setBounds(120, 150, 150, 30);
 		panel.add(dateChooser);
 		
+		itemField = new JTextField(10);
+		itemField.setBounds(120, 185, 150, 30);
+		panel.add(itemField);
+		
+		amountField = new JTextField(10);
+		amountField.setBounds(120, 220, 150, 30);
+		panel.add(amountField);
+		
+		descArea = new JTextArea();
+		descArea.setBounds(120, 255, 150, 70);
+		panel.add(descArea);
+		
 		addBtn = new JButton("Add");
-		addBtn.setBounds(70, 370, 80, 30);
+		addBtn.setBounds(70, 390, 80, 30);
 		panel.add(addBtn);
 		
 		updateBtn = new JButton("Update");
-		updateBtn.setBounds(70, 445, 80, 30);
+		updateBtn.setBounds(70, 465, 80, 30);
 		panel.add(updateBtn);
 		
 		deleteBtn = new JButton("Delete");
-		deleteBtn.setBounds(200, 370, 80, 30);
+		deleteBtn.setBounds(200, 390, 80, 30);
 		panel.add(deleteBtn);
 		
 		clearBtn = new JButton("Clear");
-		clearBtn.setBounds(200, 445, 80, 30);
+		clearBtn.setBounds(200, 465, 80, 30);
 		panel.add(clearBtn);
 
-		
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -178,19 +198,35 @@ public class ExpenseView {
 //	}
 	
 	public JTable getTable() {
-		return table;
+		return this.table;
 	}
 	
 	public void setTable(JTable table) {
 		this.table = table;
 	}
 	
+	public JLabel getUsername() {
+		return this.usernameLabel;
+	}
+	
+	public void setUsername(JLabel usernameLabel) {
+		this.usernameLabel = usernameLabel;
+	}
+	
 	public JLabel getUser() {
-		return userLabel;
+		return this.userLabel;
 	}
 	
 	public void setUser(JLabel userLabel) {
 		this.userLabel = userLabel;
+	}
+	
+	public JTextField getIdField() {
+		return this.idField;
+	}
+	
+	public void setIdField(JTextField idField) {
+		this.idField = idField;
 	}
 	
 	public JDateChooser getDate() {

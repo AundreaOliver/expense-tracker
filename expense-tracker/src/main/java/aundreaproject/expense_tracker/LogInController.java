@@ -44,11 +44,11 @@ public class LogInController {
 			}
 
 			for (LogInModel user : userList) {
-				if (!username.equals(user.getUser())) {
-					exists = true;
-
-				} else {
+				if (username.equals(user.getUser())) {
 					exists = false;
+					break;
+				} else {
+					exists = true;
 				}
 			}
 
@@ -58,7 +58,7 @@ public class LogInController {
 				ExpenseModel expModel = new ExpenseModel();
 				ExpenseView expView = new ExpenseView();
 				ExpenseController expController = new ExpenseController(expModel, expView, username);
-				expView.getUser().setText("User: " + username);
+				expView.getUsername().setText(username);
 
 			} else {
 				JOptionPane.showMessageDialog(null, "User does not exist. Please Create!");

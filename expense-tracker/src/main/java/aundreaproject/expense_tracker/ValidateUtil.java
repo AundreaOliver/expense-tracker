@@ -18,8 +18,4 @@ public class ValidateUtil {
 
 	}
 
-//	private boolean containsNumsOnly(double amt) {
-//		Pattern p = Pattern.compile(numsRegexPattern);
-//		
-//	}
 }
